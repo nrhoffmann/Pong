@@ -46,11 +46,4 @@ class GamePane extends JPanel {
 
     }
 
-    private static class Field extends JPanel { //todo move to its own file?
-        Field() {
-            setPreferredSize(SIZE);
-            setBackground(BACKGROUND);
-        }
-    }
-
 }
