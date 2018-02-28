@@ -2,8 +2,10 @@ package io.github.nrhoffmann.pong;
 
 import io.github.nrhoffmann.pong.gui.Pong;
 
+import javax.swing.*;
+
 public class PongGame {
     public static void main(String[] args) {
-        new Pong();
+        SwingUtilities.invokeLater(Pong::new);
     }
 }
