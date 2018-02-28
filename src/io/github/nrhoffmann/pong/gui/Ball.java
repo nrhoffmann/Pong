@@ -1,6 +1,6 @@
-package gui;
+package io.github.nrhoffmann.pong.gui;
 
-import phy.Velocity;
+import io.github.nrhoffmann.pong.gui.phy.Velocity;
 
 import java.awt.*;
 

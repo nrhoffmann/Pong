@@ -1,4 +1,4 @@
-package gui;
+package io.github.nrhoffmann.pong.gui;
 
 import javax.swing.*;
 import java.awt.*;
