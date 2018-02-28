@@ -4,8 +4,6 @@ import io.github.nrhoffmann.pong.physics.Vector;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 class GameTable extends JPanel{
     private Ball ball;
@@ -20,7 +18,9 @@ class GameTable extends JPanel{
         new Timer(5, event -> {
             Rectangle old = new Rectangle(ball.boundingBox);
             ball.step();
-            paintImmediately(old.union(ball.boundingBox));
+            Rectangle changedMask = old.union(ball.boundingBox);
+            changedMask.grow(5, 5);
+            paintImmediately(changedMask);
         }).start();
     }
 
@@ -29,7 +29,7 @@ class GameTable extends JPanel{
         super.paintComponent(g);
         Graphics2D graphics = (Graphics2D) g;
         graphics.setColor(Color.WHITE);
-        graphics.fill(ball.boundingBox);
+        graphics.fillOval(ball.boundingBox.x, ball.boundingBox.y, ball.RADIUS * 2, ball.RADIUS * 2);
         Toolkit.getDefaultToolkit().sync();
     }
 
@@ -38,7 +38,7 @@ class GameTable extends JPanel{
     }
 
     class Ball {
-        private final int RADIUS = 8;
+        private final int RADIUS = 16;
         private final int MAX_Y = GameTable.this.SIZE.height - RADIUS;
         private final int MIN_Y = RADIUS;
 
