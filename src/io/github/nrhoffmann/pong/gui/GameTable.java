@@ -18,19 +18,24 @@ class GameTable extends JPanel{
         ball = new Ball();
 
         new Timer(5, event -> {
+            Rectangle old = new Rectangle(ball.boundingBox);
             ball.step();
-            repaint();
+            paintImmediately(old.union(ball.boundingBox));
         }).start();
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(ball.FOREGROUND);
-        g2.fill(ball.getBoundingBox());
-//        g2.fillOval(ball.center.x, ball.center.y, ball.DIAMETER, ball.DIAMETER);
-        Toolkit.getDefaultToolkit().sync(); // todo what does this do?
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D graphics = (Graphics2D) g;
+        graphics.setColor(Color.WHITE);
+        graphics.fill(ball.boundingBox);
+        Toolkit.getDefaultToolkit().sync();
+    }
+
+    @Override
+    public void repaint(Rectangle r) {
+        super.repaint(r);
     }
 
     public Ball getBall() {
@@ -38,34 +43,36 @@ class GameTable extends JPanel{
     }
 
     class Ball {
-        private final int RADIUS = 16;
-        private final Color FOREGROUND = Color.WHITE; //new Color(128, 128, 128);
-        private final int MAX_Y = GameTable.this.SIZE.height - RADIUS; //todo deal with scoreboard making playing field smaller
+        private final int RADIUS = 8;
+        private final int MAX_Y = GameTable.this.SIZE.height - RADIUS;
         private final int MIN_Y = RADIUS;
 
         private Vector vector;
-        private Point center;
+        private Rectangle boundingBox;
+
 
         Ball() {
-            center = new Point(GameTable.this.SIZE.width / 2 - RADIUS, GameTable.this.SIZE.height / 2 - RADIUS);
+            Point centerOfTable = new Point(GameTable.this.SIZE.width / 2 - RADIUS, GameTable.this.SIZE.height / 2 - RADIUS);
+            boundingBox = new Rectangle(centerOfTable);
+            boundingBox.grow(RADIUS, RADIUS);
+
             vector = new Vector();
         }
 
         void step() {
             int deltaX = (int) vector.getSpeedX();
             int deltaY = (int) vector.getSpeedY();
-            if (center.y + deltaY < MIN_Y || center.y + deltaY > MAX_Y) {
-                deltaY = Math.max(deltaY, MIN_Y - center.y); //todo this might be ugly, or it might simulate mass compression
-                deltaY = Math.min(deltaY, MAX_Y - center.y);
+            int centerY = (int) boundingBox.getCenterY();
+
+            if (centerY + deltaY < MIN_Y || centerY + deltaY > MAX_Y) {
+                deltaY = Math.max(deltaY, MIN_Y - centerY); //todo this might be ugly, or it might simulate mass compression
+                deltaY = Math.min(deltaY, MAX_Y - centerY);
                 vector.bounceY();
             }
-            center.translate(deltaX, deltaY);
+            boundingBox.translate(deltaX, deltaY);
         }
 
-        public Rectangle getBoundingBox() {
-            Rectangle boundingBox = new Rectangle(center);
-            boundingBox.grow(RADIUS, RADIUS);
-
+        Rectangle getBoundingBox() {
             return boundingBox;
         }
     }
