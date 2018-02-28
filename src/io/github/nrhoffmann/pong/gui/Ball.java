@@ -44,9 +44,9 @@ public class Ball {
         return vector;
     }
 
-    public void step() {
-        int deltax = (int) vector.getSpeedx();
-        int deltay = (int) vector.getSpeedy();
+    public void tick() {
+        int deltax = (int) vector.getSpeedX();
+        int deltay = (int) vector.getSpeedY();
         if (location.y + deltay < minY || location.y + deltay > maxY) {
             deltay = Math.max(deltay, minY - location.y); //todo this might be ugly, or it might simulate mass compression
             deltay = Math.min(deltay, maxY - location.y);
