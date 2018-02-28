@@ -13,16 +13,7 @@ class GameTable extends JPanel{
 
     GameTable(Dimension dimension) {
         SIZE = dimension;
-
-        setPreferredSize(SIZE);
         setBackground(Color.DARK_GRAY);
-
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                System.out.println(e.getPoint());
-            }
-        });
 
         ball = new Ball();
 
