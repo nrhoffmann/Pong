@@ -36,6 +36,6 @@ public class Vector {
 
     public Vector(){
         speedx = 0;
-        speedy = 4;
+        speedy = 1;
     }
 }

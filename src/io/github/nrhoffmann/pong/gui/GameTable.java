@@ -11,7 +11,7 @@ class GameTable extends JPanel{
         setPreferredSize(dimension);
         setBackground(Color.DARK_GRAY);
 
-        timer = new Timer(15, e1 -> {
+        timer = new Timer(5, e1 -> {
             Graphics g = getGraphics();
             ball.step();
             paint(g);
