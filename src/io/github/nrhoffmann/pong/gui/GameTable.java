@@ -33,11 +33,6 @@ class GameTable extends JPanel{
         Toolkit.getDefaultToolkit().sync();
     }
 
-    @Override
-    public void repaint(Rectangle r) {
-        super.repaint(r);
-    }
-
     public Ball getBall() {
         return ball;
     }
@@ -49,7 +44,6 @@ class GameTable extends JPanel{
 
         private Vector vector;
         private Rectangle boundingBox;
-
 
         Ball() {
             Point centerOfTable = new Point(GameTable.this.SIZE.width / 2 - RADIUS, GameTable.this.SIZE.height / 2 - RADIUS);
