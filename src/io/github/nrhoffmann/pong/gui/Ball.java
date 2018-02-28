@@ -61,7 +61,7 @@ public class Ball {
         location = new Point(GamePane.SIZE.width / 2, GamePane.SIZE.height / 2);
         vector = new Vector();
 
-        maxY = GamePane.SIZE.height - size / 2;
-        minY = size / 2;
+        maxY = (int) (GamePane.SIZE.height - size * 2);
+        minY = 0;
     }
 }
