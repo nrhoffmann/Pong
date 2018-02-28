@@ -6,9 +6,7 @@ import java.awt.*;
 import static io.github.nrhoffmann.pong.gui.EndZoneChecker.Result.*;
 
 class GamePane extends JPanel {
-
-    private static final Color BACKGROUND = Color.DARK_GRAY;
-    public static final Dimension SIZE = new Dimension(1080, 720);
+    private static final Dimension SIZE = new Dimension(1080, 720);
 
     private ScoreBoard scoreBoard = new ScoreBoard();
     private GameTable gameTable = new GameTable(SIZE);
@@ -26,16 +24,7 @@ class GamePane extends JPanel {
             if (result == LEFT)
                 scoreBoard.HUMAN.increment();
             else if (result == RIGHT)
-                scoreBoard.AI.increment();
+                scoreBoard.COMPUTER.increment();
         }).start();
-
     }
-
-    private static class Field extends JPanel { //todo move to its own file?
-        Field() {
-            setPreferredSize(SIZE);
-            setBackground(BACKGROUND);
-        }
-    }
-
 }

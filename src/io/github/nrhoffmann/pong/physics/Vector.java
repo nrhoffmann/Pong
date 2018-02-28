@@ -3,39 +3,39 @@ package io.github.nrhoffmann.pong.physics;
 import java.awt.*;
 
 public class Vector {
-    private double speedx;
-    private double speedy;
+    private double speedX;
+    private double speedY;
 
-    public double getSpeedx() {
-        return speedx;
+    public double getSpeedX() {
+        return speedX;
     }
 
-    public void setSpeedx(double speedx) {
-        this.speedx = speedx;
+    public void setSpeedX(double speedX) {
+        this.speedX = speedX;
     }
 
-    public double getSpeedy() {
-        return speedy;
+    public double getSpeedY() {
+        return speedY;
     }
 
-    public void setSpeedy(double speedy) {
-        this.speedy = speedy;
+    public void setSpeedY(double speedY) {
+        this.speedY = speedY;
     }
 
     public void bounceX() {
-        speedx = 0 - speedx;
+        speedX = 0 - speedX;
     }
 
     public void bounceY() {
-        speedy = 0 - speedy;
+        speedY = 0 - speedY;
     }
 
     public Point delta() {
-        return new Point((int) speedx, (int) speedy);
+        return new Point((int) speedX, (int) speedY);
     }
 
     public Vector(){
-        speedx = 0;
-        speedy = 1;
+        speedX = 0;
+        speedY = 1;
     }
 }

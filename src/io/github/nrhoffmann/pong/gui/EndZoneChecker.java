@@ -34,13 +34,13 @@ class EndZoneChecker {
         return new Dimension(END_ZONE_DEPTH, gameTable.getPreferredSize().height);
     }
 
-    public Result check(Ball ball) {
-        Point ballLocation = ball.getLocation();
+    public Result check(GameTable.Ball ball) {
+        Rectangle ballBoundaries  = ball.getBoundingBox();
 
-        if (leftEndZone.contains(ballLocation))
+        if (leftEndZone.intersects(ballBoundaries))
             return Result.LEFT;
 
-        if (rightEndZone.contains(ballLocation))
+        if (rightEndZone.intersects(ballBoundaries))
             return Result.RIGHT;
 
         return Result.NONE;
