@@ -10,28 +10,28 @@ class EndZoneChecker {
     private Rectangle leftEndZone;
     private Rectangle rightEndZone;
 
-    EndZoneChecker(PlayingField playingField) {
-        leftEndZone = computeLeftEndZone(playingField);
-        rightEndZone = computeRightEndZone(playingField);
+    EndZoneChecker(GameTable gameTable) {
+        leftEndZone = computeLeftEndZone(gameTable);
+        rightEndZone = computeRightEndZone(gameTable);
     }
 
-    private Rectangle computeLeftEndZone(PlayingField playingField) {
-        Dimension size = computeSize(playingField);
+    private Rectangle computeLeftEndZone(GameTable gameTable) {
+        Dimension size = computeSize(gameTable);
         Point nwCorner = new Point(0, 0);
 
         return new Rectangle(nwCorner, size);
     }
 
-    private Rectangle computeRightEndZone(PlayingField playingField) {
-        Dimension size = computeSize(playingField);
-        Point nwCorner = new Point(playingField.getPreferredSize().width, 0);
+    private Rectangle computeRightEndZone(GameTable gameTable) {
+        Dimension size = computeSize(gameTable);
+        Point nwCorner = new Point(gameTable.getPreferredSize().width, 0);
         nwCorner.translate(-END_ZONE_DEPTH, 0);
 
         return new Rectangle(nwCorner, size);
     }
 
-    private Dimension computeSize(PlayingField playingField) {
-        return new Dimension(END_ZONE_DEPTH, playingField.getPreferredSize().height);
+    private Dimension computeSize(GameTable gameTable) {
+        return new Dimension(END_ZONE_DEPTH, gameTable.getPreferredSize().height);
     }
 
     public Result check(Ball ball) {

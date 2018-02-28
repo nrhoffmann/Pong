@@ -3,11 +3,11 @@ package io.github.nrhoffmann.pong.gui;
 import javax.swing.*;
 import java.awt.*;
 
-class PlayingField extends JPanel{
+class GameTable extends JPanel{
     private Ball ball = new Ball();
     private Timer timer;
 
-    PlayingField(Dimension dimension) {
+    GameTable(Dimension dimension) {
         setPreferredSize(dimension);
         setBackground(Color.DARK_GRAY);
 

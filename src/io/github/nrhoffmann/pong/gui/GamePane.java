@@ -11,17 +11,17 @@ class GamePane extends JPanel {
     public static final Dimension SIZE = new Dimension(1080, 720);
 
     private ScoreBoard scoreBoard = new ScoreBoard();
-    private PlayingField playingField = new PlayingField(SIZE);
-    private EndZoneChecker endZoneChecker = new EndZoneChecker(playingField);
+    private GameTable gameTable = new GameTable(SIZE);
+    private EndZoneChecker endZoneChecker = new EndZoneChecker(gameTable);
 
     GamePane() {
         super(new BorderLayout());
 
         add(scoreBoard, BorderLayout.NORTH);
-        add(playingField, BorderLayout.CENTER);
+        add(gameTable, BorderLayout.CENTER);
 
         new Timer(100, (event) -> {
-            EndZoneChecker.Result result = endZoneChecker.check(playingField.getBall());
+            EndZoneChecker.Result result = endZoneChecker.check(gameTable.getBall());
 
             if (result == LEFT)
                 scoreBoard.HUMAN.increment();
