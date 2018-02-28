@@ -24,9 +24,8 @@ class EndZoneChecker {
 
     private Rectangle computeRightEndZone(PlayingField playingField) {
         Dimension size = computeSize(playingField);
-        Point nwCorner = new Point(playingField.getPreferredSize().width,
-                                   playingField.getPreferredSize().height);
-        nwCorner.translate(0, END_ZONE_DEPTH);
+        Point nwCorner = new Point(playingField.getPreferredSize().width, 0);
+        nwCorner.translate(-END_ZONE_DEPTH, 0);
 
         return new Rectangle(nwCorner, size);
     }

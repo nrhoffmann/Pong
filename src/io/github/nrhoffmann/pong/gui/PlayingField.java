@@ -8,4 +8,8 @@ class PlayingField extends JPanel{
         setPreferredSize(dimension);
         setBackground(Color.DARK_GRAY);
     }
+
+    public Ball getBall() {
+        return new Ball(); //todo
+    }
 }
