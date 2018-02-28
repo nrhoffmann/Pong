@@ -58,10 +58,10 @@ public class Ball {
     Ball() {
         size = 500;
         color = new Color(128, 128, 128);
-        location = new Point(GamePane.SIZE.width / 2, GamePane.SIZE.height / 2);
+        location = new Point(GamePane.SIZE.width / 2 - size / 2, GamePane.SIZE.height / 2);
         vector = new Vector();
 
-        maxY = (int) (GamePane.SIZE.height - size * 2);
+        maxY = GamePane.SIZE.height - size;
         minY = 0;
     }
 }

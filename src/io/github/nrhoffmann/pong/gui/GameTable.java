@@ -14,7 +14,7 @@ class GameTable extends JPanel{
         timer = new Timer(5, e1 -> {
             Graphics g = getGraphics();
             ball.step();
-            paint(g);
+            paintComponent(g);
         });
         timer.start();
     }
