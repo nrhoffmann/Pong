@@ -1,4 +1,4 @@
-package io.github.nrhoffmann.pong.gui.phy;
+package io.github.nrhoffmann.pong.phy;
 
 import java.awt.*;
 
