@@ -6,12 +6,15 @@ import java.awt.*;
 class GamePane extends JPanel {
 
     private static final Color BACKGROUND = Color.DARK_GRAY;
-    private static final Dimension SIZE = new Dimension(1080, 720);
+    public static final Dimension SIZE = new Dimension(1080, 720);
 
     private ScoreBoard scoreBoard = new ScoreBoard();
     private Field field = new Field();
     private Checker leftChecker = new LeftChecker();
     private Checker rightChecker = new RightChecker();
+
+    private Ball ball = new Ball(); // todo maybe move this and associated methods to Field
+    private Timer timer;
 
     GamePane() {
         super(new BorderLayout());
@@ -20,9 +23,24 @@ class GamePane extends JPanel {
         add(field, BorderLayout.CENTER);
         add(leftChecker, BorderLayout.WEST);
         add(rightChecker, BorderLayout.EAST);
+        timer = new Timer(15, e1 -> {
+            Graphics g = getGraphics();
+            ball.step();
+            paint(g);
+        });
+        timer.start();
+
     }
 
-    private static class Field extends JPanel {
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(ball.getColor());
+        g2.fillOval(ball.getLocation().x, ball.getLocation().y, ball.getSize(), ball.getSize());
+    }
+
+    private static class Field extends JPanel { //todo move to its own file?
         Field() {
             setPreferredSize(SIZE);
             setBackground(BACKGROUND);
