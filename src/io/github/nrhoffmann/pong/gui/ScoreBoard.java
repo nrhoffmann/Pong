@@ -6,7 +6,7 @@ import java.awt.*;
 class ScoreBoard extends JPanel {
 
     final Score AI = new Score("AI");
-    final Score HUMAN = new Score("Human");
+    final Score HUMAN = new Score("HUMAN");
 
     ScoreBoard() {
         super(new GridLayout(1, 2));
