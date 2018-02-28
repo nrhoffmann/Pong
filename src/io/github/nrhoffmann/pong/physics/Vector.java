@@ -3,42 +3,39 @@ package io.github.nrhoffmann.pong.physics;
 import java.awt.*;
 
 public class Vector {
-    private double theta;
-    private int speed;
+    private double speedx;
+    private double speedy;
 
-    public double getTheta() {
-        return theta;
+    public double getSpeedx() {
+        return speedx;
     }
 
-    public void setTheta(double theta) {
-        this.theta = theta;
+    public void setSpeedx(double speedx) {
+        this.speedx = speedx;
     }
 
-    public int getSpeed() {
-        return speed;
+    public double getSpeedy() {
+        return speedy;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public void setSpeedy(double speedy) {
+        this.speedy = speedy;
     }
 
     public void bounceX() {
-
+        speedx = 0 - speedx;
     }
 
     public void bounceY() {
-
+        speedy = 0 - speedy;
     }
 
     public Point delta() {
-        double x = speed * Math.sin(theta);
-        double y = speed * Math.cos(theta);
-
-        return new Point((int) x, (int) y);
+        return new Point((int) speedx, (int) speedy);
     }
 
     public Vector(){
-        theta = 110;
-        speed = 10;
+        speedx = 0;
+        speedy = 4;
     }
 }
