@@ -25,6 +25,7 @@ class GameTable extends JPanel{
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(ball.getColor());
         g2.fillOval(ball.getLocation().x, ball.getLocation().y, ball.getSize(), ball.getSize());
+        Toolkit.getDefaultToolkit().sync();
     }
 
     public Ball getBall() {
