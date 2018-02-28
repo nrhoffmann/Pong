@@ -1,8 +1,8 @@
-package io.github.nrhoffmann.pong.phy;
+package io.github.nrhoffmann.pong.physics;
 
 import java.awt.*;
 
-public class Velocity {
+public class Vector {
     private double theta;
     private int speed;
 
@@ -22,10 +22,23 @@ public class Velocity {
         this.speed = speed;
     }
 
+    public void bounceX() {
+
+    }
+
+    public void bounceY() {
+
+    }
+
     public Point delta() {
         double x = speed * Math.sin(theta);
         double y = speed * Math.cos(theta);
 
         return new Point((int) x, (int) y);
+    }
+
+    public Vector(){
+        theta = 110;
+        speed = 10;
     }
 }

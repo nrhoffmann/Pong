@@ -3,7 +3,7 @@ package io.github.nrhoffmann.pong.gui;
 import javax.swing.*;
 import java.awt.*;
 
-class Game extends JPanel {
+class GamePane extends JPanel {
 
     private static final Color BACKGROUND = Color.DARK_GRAY;
     private static final Dimension SIZE = new Dimension(1080, 720);
@@ -13,7 +13,7 @@ class Game extends JPanel {
     private Checker leftChecker = new LeftChecker();
     private Checker rightChecker = new RightChecker();
 
-    Game() {
+    GamePane() {
         super(new BorderLayout());
 
         add(scoreBoard, BorderLayout.NORTH);
