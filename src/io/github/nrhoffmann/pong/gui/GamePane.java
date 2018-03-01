@@ -12,7 +12,7 @@ class GamePane extends JPanel {
     private static final int GAME_TABLE_HEIGHT = 720;
 
     private ScoreBoard scoreBoard = new ScoreBoard();
-    private GameTable gameTable = new GameTable();
+    private GameTable gameTable = new GameTable(new Dimension(WIDTH, GAME_TABLE_HEIGHT));
     private EndZoneChecker endZoneChecker = new EndZoneChecker(gameTable);
 
     GamePane() {

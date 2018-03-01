@@ -11,9 +11,10 @@ class GameTable extends JPanel{
     private Ball ball = new Ball();
     private Timer timer;
     private static final Dimension SIZE = new Dimension(1080, 720);
+    private final Dimension SIZE;
 
-    GameTable() {
-        setPreferredSize(SIZE);
+    GameTable(Dimension dimension) {
+        SIZE = dimension;
         setBackground(Color.DARK_GRAY);
 
         timer = new Timer(5, e1 -> {
@@ -94,10 +95,10 @@ class GameTable extends JPanel{
         Ball() {
             size = 500;
             color = new Color(128, 128, 128);
-            location = new Point(GameTable.SIZE.width / 2 - size / 2, GameTable.SIZE.height / 2);
+            location = new Point(GameTable.this.SIZE.width / 2 - size / 2, GameTable.this.SIZE.height / 2);
             vector = new Vector();
 
-            maxY = GameTable.SIZE.height - size;
+            maxY = GameTable.this.SIZE.height - size;
             minY = 0;
         }
     }
