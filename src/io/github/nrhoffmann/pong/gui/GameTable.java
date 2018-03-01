@@ -8,21 +8,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 class GameTable extends JPanel{
-    private Ball ball = new Ball();
-    private Timer timer;
-    private static final Dimension SIZE = new Dimension(1080, 720);
     private final Dimension SIZE;
+    private Ball ball;
 
     GameTable(Dimension dimension) {
         SIZE = dimension;
         setBackground(Color.DARK_GRAY);
+        ball = new Ball();
 
-        timer = new Timer(5, e1 -> {
+        new Timer(5, e1 -> {
             Graphics g = getGraphics();
             ball.tick();
             paintComponent(g);
-        });
-        timer.start();
+        }).start();
 
         addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -41,11 +39,15 @@ class GameTable extends JPanel{
         Toolkit.getDefaultToolkit().sync();
     }
 
+    public Ball getBall() {
+        return ball;
+    }
+
     public class Ball {
-        private Vector vector;
-        private Point location;
-        private int size;
         private Color color;
+        private Point location;
+        private Vector vector;
+        private int size;
         private int maxY;
         private int minY;
 
@@ -82,14 +84,14 @@ class GameTable extends JPanel{
         }
 
         void tick() {
-            int deltax = (int) vector.getSpeedX();
-            int deltay = (int) vector.getSpeedY();
-            if (location.y + deltay < minY || location.y + deltay > maxY) {
-                deltay = Math.max(deltay, minY - location.y); //todo this might be ugly, or it might simulate mass compression
-                deltay = Math.min(deltay, maxY - location.y);
+            int deltaX = (int) vector.getSpeedX();
+            int deltaY = (int) vector.getSpeedY();
+            if (location.y + deltaY < minY || location.y + deltaY > maxY) {
+                deltaY = Math.max(deltaY, minY - location.y); //todo this might be ugly, or it might simulate mass compression
+                deltaY = Math.min(deltaY, maxY - location.y);
                 vector.bounceY();
             }
-            location.translate(deltax, deltay);
+            location.translate(deltaX, deltaY);
         }
 
         Ball() {
