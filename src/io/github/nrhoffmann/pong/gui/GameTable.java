@@ -53,9 +53,4 @@ class GameTable extends JPanel{
         return stuffOnTable;
     }
 
-    interface Object {
-        void tick();
-        void paint(Graphics2D g2);
-    }
-
 }
