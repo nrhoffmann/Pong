@@ -56,8 +56,11 @@ public class Ball implements GameTable.Object {
         location.translate(deltaX, deltaY);
     }
 
-
-
+    @Override
+    public void paint(Graphics2D g2) {
+        g2.setColor(color);
+        g2.fillOval(location.x , location.y, size, size);
+    }
 
     Ball() {
         size = 500;

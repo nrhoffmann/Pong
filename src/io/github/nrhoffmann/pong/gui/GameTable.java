@@ -35,8 +35,9 @@ class GameTable extends JPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(ball.getColor());
-        g2.fillOval(ball.getLocation().x, ball.getLocation().y, ball.getSize(), ball.getSize());
+        for(Object thing : stuffOnTable){
+            thing.paint(g2);
+        }
         Toolkit.getDefaultToolkit().sync();
     }
 
@@ -45,7 +46,8 @@ class GameTable extends JPanel{
     }
 
     interface Object {
-        abstract void tick();
+        void tick();
+        void paint(Graphics2D g2);
     }
 
 }
