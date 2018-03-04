@@ -34,6 +34,11 @@ public class Vector {
         return new Point((int) speedX, (int) speedY);
     }
 
+    public Vector(){
+        speedX = 0;
+        speedY = 0;
+    }
+
     public Vector(int speedX, int speedY){
         this.speedX = speedX;
         this.speedY = speedY;

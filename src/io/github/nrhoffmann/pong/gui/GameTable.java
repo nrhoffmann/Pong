@@ -1,6 +1,6 @@
 package io.github.nrhoffmann.pong.gui;
 
-import io.github.nrhoffmann.pong.physics.Vector;
+import io.github.nrhoffmann.pong.control.Human;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +16,8 @@ class GameTable extends JPanel{
         setBackground(Color.DARK_GRAY);
         ball = new Ball();
         stuffOnTable.add(ball);
+        stuffOnTable.add(new Paddle(0, new Human())); //todo side enum
+        stuffOnTable.add(new Paddle(1, new Human())); //todo side enum or something
 
         new Timer(5, e1 -> {
             Graphics g = getGraphics();
@@ -33,6 +35,10 @@ class GameTable extends JPanel{
         });
     }
 
+    public Ball getBall() {
+        return ball;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -43,8 +49,8 @@ class GameTable extends JPanel{
         Toolkit.getDefaultToolkit().sync();
     }
 
-    public Ball getBall() {
-        return ball;
+    public ArrayList<Object> getStuffOnTable() {
+        return stuffOnTable;
     }
 
     interface Object {
