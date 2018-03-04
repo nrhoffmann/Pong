@@ -6,10 +6,6 @@ import java.awt.*;
 import static io.github.nrhoffmann.pong.gui.EndZoneChecker.Result.*;
 
 class GamePane extends JPanel {
-    private static final int WIDTH = 1080;
-    private static final int SCORE_BOARD_HEIGHT = 32;
-    private static final int GAME_TABLE_HEIGHT = 720;
-
     static final int WIDTH = 1080; // https://softwareengineering.stackexchange.com/a/261868/144103
     static final int GAME_TABLE_HEIGHT = 720;
 
