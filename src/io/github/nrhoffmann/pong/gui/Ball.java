@@ -12,6 +12,16 @@ public class Ball implements GameTable.Object {
     private int maxY;
     private int minY;
 
+    Ball() {
+        size = 500;
+        color = new Color(128, 128, 128);
+        location = new Point(GamePane.WIDTH / 2 - size / 2, GamePane.GAME_TABLE_HEIGHT / 2);
+        vector = new Vector();
+
+        maxY = GamePane.GAME_TABLE_HEIGHT - size;
+        minY = 0;
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }
@@ -62,13 +72,4 @@ public class Ball implements GameTable.Object {
         g2.fillOval(location.x , location.y, size, size);
     }
 
-    Ball() {
-        size = 500;
-        color = new Color(128, 128, 128);
-        location = new Point(GamePane.WIDTH / 2 - size / 2, GamePane.GAME_TABLE_HEIGHT / 2);
-        vector = new Vector();
-
-        maxY = GamePane.GAME_TABLE_HEIGHT - size;
-        minY = 0;
-    }
 }
