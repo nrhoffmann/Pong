@@ -34,7 +34,7 @@ class EndZoneChecker {
         return new Dimension(END_ZONE_DEPTH, gameTable.getPreferredSize().height);
     }
 
-    public Result check(GameTable.Ball ball) {
+    public Result check(Ball ball) {
         Point ballLocation = ball.getLocation();
 
         if (leftEndZone.contains(ballLocation))
