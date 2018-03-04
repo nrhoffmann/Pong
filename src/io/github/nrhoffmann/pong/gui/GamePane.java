@@ -1,19 +1,21 @@
 package io.github.nrhoffmann.pong.gui;
 
+import io.github.nrhoffmann.pong.control.Computer;
+import io.github.nrhoffmann.pong.control.Human;
+
 import javax.swing.*;
 import java.awt.*;
 
 import static io.github.nrhoffmann.pong.gui.EndZoneChecker.Result.*;
 
 class GamePane extends JPanel {
-    static final int WIDTH = 1080; // https://softwareengineering.stackexchange.com/a/261868/144103
+    static final int WIDTH = 1080;
     static final int GAME_TABLE_HEIGHT = 720;
 
     private static final int SCORE_BOARD_HEIGHT = 32;
 
     private ScoreBoard scoreBoard = new ScoreBoard();
     private GameTable gameTable = new GameTable();
-    private EndZoneChecker endZoneChecker = new EndZoneChecker(gameTable);
 
     GamePane() {
         GridBagLayout layout = new GridBagLayout();
@@ -33,14 +35,13 @@ class GamePane extends JPanel {
         scoreBoardConstraints.gridy = 0;
         add(scoreBoard, scoreBoardConstraints);
 
-        new Timer(100, (event) -> {
-            EndZoneChecker.Result result = endZoneChecker.check(gameTable.getBall());
+        gameTable.addBall(new Ball());
 
-            if (result == LEFT)
-                scoreBoard.HUMAN.increment();
-            else if (result == RIGHT)
-                scoreBoard.COMPUTER.increment();
-        }).start();
+        Paddle computerLeftPaddle = new Paddle(Side.LEFT, new Computer());
+        gameTable.addPaddle(computerLeftPaddle);
+
+        Paddle humanRightPaddle = new Paddle(Side.RIGHT, new Human());
+        gameTable.addPaddle(humanRightPaddle);
     }
 
 }
