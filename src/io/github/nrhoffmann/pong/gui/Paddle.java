@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class Paddle implements GameTable.Object {
 
+    final Side SIDE;
     private PaddleController input;
     private Color color;
     private Point location;
@@ -17,7 +18,9 @@ public class Paddle implements GameTable.Object {
     private int maxY;
     private int minY;
 
-    Paddle(int side, PaddleController controller) {
+    Paddle(Side side, PaddleController controller) {
+        SIDE = side;
+
         input = controller;
         height = 200;
         width = 50;
@@ -25,7 +28,7 @@ public class Paddle implements GameTable.Object {
         color = new Color(0, 0, 0);
 
         int padding = (int) (width * 0.75);
-        location = new Point(padding + side * ((GamePane.WIDTH - (padding * 2) - width)), GamePane.GAME_TABLE_HEIGHT / 2);
+        location = new Point(padding + side * ((GamePane.WIDTH - (padding * 2) - width)), GamePane.GAME_TABLE_HEIGHT / 2); // better experessed as if
 
         vector = new Vector(0, 0);
 

@@ -3,6 +3,7 @@ package io.github.nrhoffmann.pong.gui;
 import io.github.nrhoffmann.pong.physics.Vector;
 
 import java.awt.*;
+import java.util.List;
 
 public class Ball implements GameTable.Object {
     private Color color;
@@ -11,6 +12,7 @@ public class Ball implements GameTable.Object {
     private int size;
     private int maxY;
     private int minY;
+    private List<Paddle> potentiallyCollidablePaddles;
 
     Ball() {
         size = 500;
@@ -76,4 +78,7 @@ public class Ball implements GameTable.Object {
         g2.fillOval(location.x , location.y, size, size);
     }
 
+    public void setPotentiallyCollidablePaddles(List<Paddle> potentiallyCollidablePaddles) {
+        this.potentiallyCollidablePaddles = potentiallyCollidablePaddles;
+    }
 }
