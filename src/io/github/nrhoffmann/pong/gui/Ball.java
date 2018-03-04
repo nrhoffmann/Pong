@@ -16,7 +16,7 @@ public class Ball implements GameTable.Object {
         size = 500;
         color = new Color(128, 128, 128);
         location = new Point(GamePane.WIDTH / 2 - size / 2, GamePane.GAME_TABLE_HEIGHT / 2);
-        vector = new Vector();
+        vector = new Vector(0, 1);
 
         maxY = GamePane.GAME_TABLE_HEIGHT - size;
         minY = 0;
