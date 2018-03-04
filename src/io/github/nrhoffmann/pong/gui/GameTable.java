@@ -1,18 +1,14 @@
 package io.github.nrhoffmann.pong.gui;
 
-import io.github.nrhoffmann.pong.physics.Vector;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 class GameTable extends JPanel{
-    private final Dimension SIZE;
     private Ball ball;
 
-    GameTable(Dimension dimension) {
-        SIZE = dimension;
+    GameTable() {
         setBackground(Color.DARK_GRAY);
         ball = new Ball();
 
