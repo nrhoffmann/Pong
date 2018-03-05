@@ -2,12 +2,10 @@ package io.github.nrhoffmann.pong.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
-class GameTable extends JPanel {
+public class GameTable extends JPanel {
     private final List<Ball> BALLS = new LinkedList<>();
     private final List<Paddle> LEFT_PADDLES = new LinkedList<>();
     private final List<Paddle> RIGHT_PADDLES = new LinkedList<>();
@@ -68,6 +66,14 @@ class GameTable extends JPanel {
             LEFT_PADDLES.add(paddle);
         else if (paddle.SIDE == Side.RIGHT)
             RIGHT_PADDLES.add(paddle);
+    }
+
+    public List<Ball> getBALLS() {
+        return BALLS;
+    }
+
+    public List<Paddle> getLEFT_PADDLES() {
+        return LEFT_PADDLES;
     }
 
     @Override

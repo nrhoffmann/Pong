@@ -6,8 +6,9 @@ import io.github.nrhoffmann.pong.control.MouseWheelBridge;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.font.GlyphMetrics;
 
-class GamePane extends JPanel {
+public class GamePane extends JPanel {
     static final int WIDTH = 1080;
     static final int GAME_TABLE_HEIGHT = 720;
 
@@ -36,7 +37,7 @@ class GamePane extends JPanel {
 
         gameTable.addBall(new Ball(scoreBoard));
 
-        Paddle computerLeftPaddle = new Paddle(Side.LEFT, new Computer());
+        Paddle computerLeftPaddle = new Paddle(Side.LEFT, new Computer(gameTable));
         gameTable.addPaddle(computerLeftPaddle);
 
         Human human = new Human();

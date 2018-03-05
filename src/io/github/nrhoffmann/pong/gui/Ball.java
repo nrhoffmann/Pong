@@ -34,6 +34,10 @@ public class Ball implements GameObject {
         return vector;
     }
 
+    public Rectangle getDrawLocation() {
+        return drawLocation;
+    }
+
     @Override
     public void tick() {
         int newX = (int) (drawLocation.x + vector.getSpeedX());
