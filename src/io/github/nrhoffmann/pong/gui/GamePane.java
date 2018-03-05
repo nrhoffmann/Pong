@@ -14,10 +14,10 @@ public class GamePane extends JPanel {
 
     private static final int SCORE_BOARD_HEIGHT = 32;
 
-    private ScoreBoard scoreBoard = new ScoreBoard();
-    private GameTable gameTable = new GameTable();
-
     GamePane() {
+        ScoreBoard scoreBoard = new ScoreBoard();
+        GameTable gameTable = new GameTable();
+
         GridBagLayout layout = new GridBagLayout();
         layout.rowHeights = new int[]{SCORE_BOARD_HEIGHT, GAME_TABLE_HEIGHT};
         layout.columnWidths = new int[]{WIDTH};

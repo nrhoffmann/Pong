@@ -13,16 +13,8 @@ public class Vector {
         return speedX;
     }
 
-    public void setSpeedX(double speedX) {
-        this.speedX = speedX;
-    }
-
     public double getSpeedY() {
         return speedY;
-    }
-
-    public void setSpeedY(double speedY) {
-        this.speedY = speedY;
     }
 
     public void bounceX() {

@@ -5,7 +5,6 @@ import io.github.nrhoffmann.pong.gui.GamePane;
 import io.github.nrhoffmann.pong.gui.GameTable;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Computer implements Controller {

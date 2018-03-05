@@ -72,10 +72,6 @@ public class GameTable extends JPanel {
         return BALLS;
     }
 
-    public List<Paddle> getLEFT_PADDLES() {
-        return LEFT_PADDLES;
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

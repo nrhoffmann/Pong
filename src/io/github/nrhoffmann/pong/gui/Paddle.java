@@ -1,7 +1,6 @@
 package io.github.nrhoffmann.pong.gui;
 
 import io.github.nrhoffmann.pong.control.Controller;
-import io.github.nrhoffmann.pong.physics.Vector;
 
 import java.awt.*;
 
@@ -18,7 +17,6 @@ public class Paddle implements GameObject {
     private static final Color color = Color.BLACK;
     private Point location;
     private Point oldLocation;
-    private Vector vector = new Vector();
 
     Paddle(Side side, Controller controller) {
         SIDE = side;
@@ -27,10 +25,6 @@ public class Paddle implements GameObject {
         int padding = (int) (WIDTH * 0.75);
         location = new Point(padding + (side == Side.LEFT ? 0 : ((GamePane.WIDTH - (padding * 2) - WIDTH))), GamePane.GAME_TABLE_HEIGHT / 2 - HEIGHT / 2);
 
-    }
-
-    public Point getLocation() {
-        return location;
     }
 
     public Rectangle getRectangle() {

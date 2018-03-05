@@ -22,7 +22,6 @@ public class Ball implements GameObject {
     private Rectangle oldLocation;
     private Vector vector;
     private List<Paddle> potentiallyCollidablePaddles = new LinkedList<>();
-    //private int checkCollisionsPastHere;
 
     Ball(ScoreBoard scoreBoard) {
         SCORE_BOARD = scoreBoard;
@@ -100,8 +99,5 @@ public class Ball implements GameObject {
 
     public void setPotentiallyCollidablePaddles(List<Paddle> potentiallyCollidablePaddles) {
         this.potentiallyCollidablePaddles = potentiallyCollidablePaddles;
-        //if (potentiallyCollidablePaddles.get(0).SIDE == Side.LEFT) {
-
-        //}
     }
 }
