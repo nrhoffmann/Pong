@@ -10,7 +10,7 @@ import java.awt.font.GlyphMetrics;
 
 public class GamePane extends JPanel {
     static final int WIDTH = 1080;
-    static final int GAME_TABLE_HEIGHT = 720;
+    public static final int GAME_TABLE_HEIGHT = 720;
 
     private static final int SCORE_BOARD_HEIGHT = 32;
 
@@ -35,7 +35,8 @@ public class GamePane extends JPanel {
         scoreBoardConstraints.gridy = 0;
         add(scoreBoard, scoreBoardConstraints);
 
-        gameTable.addBall(new Ball(scoreBoard));
+        for (int i = 0; i < 3; i++)
+            gameTable.addBall(new Ball(scoreBoard));
 
         Paddle computerLeftPaddle = new Paddle(Side.LEFT, new Computer(gameTable));
         gameTable.addPaddle(computerLeftPaddle);
@@ -47,7 +48,6 @@ public class GamePane extends JPanel {
         addMouseWheelListener(bridge.listener());
 
         bridge.addConsumer(human);
-        bridge.addConsumer(System.out::println); // todo remove before submission
     }
 
 }

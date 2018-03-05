@@ -27,7 +27,6 @@ public class Ball implements GameObject {
     Ball(ScoreBoard scoreBoard) {
         SCORE_BOARD = scoreBoard;
         reset();
-        vector = new Vector(1, 1);
     }
 
     public Vector getVector() {
@@ -85,6 +84,7 @@ public class Ball implements GameObject {
 
     private void reset() {
         drawLocation = new Rectangle(defaultLocation);
+        vector = new Vector();
     }
 
     @Override

@@ -1,17 +1,20 @@
 package io.github.nrhoffmann.pong.control;
 
 import io.github.nrhoffmann.pong.gui.Ball;
+import io.github.nrhoffmann.pong.gui.GamePane;
 import io.github.nrhoffmann.pong.gui.GameTable;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Computer implements Controller {
     private final List<Ball> BALLS;
+    private Ball trackingBall;
 
-    private Random rand = new Random();
+    private ThreadLocalRandom rand = ThreadLocalRandom.current();
 
-    private int ystuff = 400;
+    private int approximateY = GamePane.GAME_TABLE_HEIGHT / 2;
 
     public Computer(GameTable gameTable) {
         BALLS = gameTable.getBALLS();
@@ -19,24 +22,25 @@ public class Computer implements Controller {
 
     @Override
     public int nextInput() {
-        int minx = 600; //todo only works on left
-        int y = 0;
+        if (trackingBall == null)
+            trackingBall = BALLS.get(0);
 
-        for (Ball ball : BALLS) {
-            if (ball.getDrawLocation().x < minx) {
-                minx = ball.getDrawLocation().x;
-                y = ball.getDrawLocation().y;
-            }
-        }
 
-        int delta = rand.nextInt(2) * (y > ystuff ? -2 : 2);
-        if (ystuff > 600)
-            ystuff = 600;
+        if (trackingBall.getVector().getSpeedX() > 0)
+            trackingBall = BALLS.get(rand.nextInt(BALLS.size()));
 
-        if (ystuff < 0)
-            ystuff = 0;
 
-        ystuff += delta;
-        return y < 360 ? -3 : 3;
+        int input = 0;
+
+        if (trackingBall.getDrawLocation().getCenterY() > approximateY)
+                input = 3;
+        else if (trackingBall.getDrawLocation().getCenterY() < approximateY)
+                input = -3;
+
+        approximateY += input;
+
+        System.out.println(input);
+
+        return input;
     }
 }
