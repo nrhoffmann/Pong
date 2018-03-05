@@ -28,7 +28,7 @@ public class Paddle implements GameObject {
         color = new Color(0, 0, 0);
 
         int padding = (int) (width * 0.75);
-        location = new Point(padding + side * ((GamePane.WIDTH - (padding * 2) - width)), GamePane.GAME_TABLE_HEIGHT / 2); // better experessed as if
+        location = new Point(padding + (side == Side.LEFT ? 0 : ((GamePane.WIDTH - (padding * 2) - width))), GamePane.GAME_TABLE_HEIGHT / 2 + height / 2);
 
         vector = new Vector(0, 0);
 
