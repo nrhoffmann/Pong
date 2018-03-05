@@ -2,11 +2,10 @@ package io.github.nrhoffmann.pong.gui;
 
 import io.github.nrhoffmann.pong.control.Computer;
 import io.github.nrhoffmann.pong.control.Human;
+import io.github.nrhoffmann.pong.control.MouseWheelBridge;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static io.github.nrhoffmann.pong.gui.EndZoneChecker.Result.*;
 
 class GamePane extends JPanel {
     static final int WIDTH = 1080;
@@ -40,8 +39,14 @@ class GamePane extends JPanel {
         Paddle computerLeftPaddle = new Paddle(Side.LEFT, new Computer());
         gameTable.addPaddle(computerLeftPaddle);
 
-        Paddle humanRightPaddle = new Paddle(Side.RIGHT, new Human());
-        gameTable.addPaddle(humanRightPaddle);
+        Human human = new Human();
+        gameTable.addPaddle(new Paddle(Side.RIGHT, human));
+
+        MouseWheelBridge bridge = new MouseWheelBridge();
+        addMouseWheelListener(bridge.listener());
+
+        bridge.addConsumer(human);
+        bridge.addConsumer(System.out::println); // todo remove before submission
     }
 
 }
