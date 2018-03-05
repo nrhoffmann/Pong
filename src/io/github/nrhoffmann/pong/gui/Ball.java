@@ -5,7 +5,7 @@ import io.github.nrhoffmann.pong.physics.Vector;
 import java.awt.*;
 import java.util.List;
 
-public class Ball implements GameTable.Object {
+public class Ball implements GameObject {
     private Color color;
     private Point location;
     private Vector vector;

@@ -5,7 +5,7 @@ import io.github.nrhoffmann.pong.physics.Vector;
 
 import java.awt.*;
 
-public class Paddle implements GameTable.Object {
+public class Paddle implements GameObject {
 
     final Side SIDE;
     private PaddleController input;
