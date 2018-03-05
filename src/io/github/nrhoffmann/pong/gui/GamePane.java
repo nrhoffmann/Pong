@@ -34,7 +34,7 @@ class GamePane extends JPanel {
         scoreBoardConstraints.gridy = 0;
         add(scoreBoard, scoreBoardConstraints);
 
-        gameTable.addBall(new Ball());
+        gameTable.addBall(new Ball(scoreBoard));
 
         Paddle computerLeftPaddle = new Paddle(Side.LEFT, new Computer());
         gameTable.addPaddle(computerLeftPaddle);

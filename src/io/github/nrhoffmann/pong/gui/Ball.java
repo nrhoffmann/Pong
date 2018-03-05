@@ -9,11 +9,14 @@ import java.util.List;
 
 public class Ball implements GameObject {
     private static final Color COLOR = new Color(128, 128, 128);
-    private static final int SIZE = 75;
+    private static final int SIZE = 50;
     private static final int MIN_Y = 0;
     private static final int MAX_Y = GamePane.GAME_TABLE_HEIGHT - SIZE;
     private static final int MIN_X = 0 - SIZE;
     private static final int MAX_X = SIZE + GamePane.WIDTH;
+    private final ScoreBoard SCORE_BOARD;
+
+    private static Rectangle defaultLocation = new Rectangle(GamePane.WIDTH / 2 - SIZE / 2, GamePane.GAME_TABLE_HEIGHT / 2 - SIZE / 2, SIZE, SIZE);
 
     private Rectangle drawLocation;
     private Rectangle oldLocation;
@@ -21,9 +24,10 @@ public class Ball implements GameObject {
     private List<Paddle> potentiallyCollidablePaddles = new LinkedList<>();
     //private int checkCollisionsPastHere;
 
-    Ball() {
-        drawLocation = new Rectangle(GamePane.WIDTH / 2 - SIZE / 2, GamePane.GAME_TABLE_HEIGHT / 2 - SIZE / 2, SIZE, SIZE);
-        vector = new Vector(0, 1);
+    Ball(ScoreBoard scoreBoard) {
+        SCORE_BOARD = scoreBoard;
+        reset();
+        vector = new Vector(1, 1);
     }
 
     public Vector getVector() {
@@ -40,21 +44,11 @@ public class Ball implements GameObject {
             newX = (int) line.solveForX(MIN_Y);
             newY = MIN_Y;
             vector.bounceY();
-//            int tmp = deltaY;
-//            deltaY = MIN_Y - drawLocation.y;
-//            vector.bounceY();
-//            double rate = (double) deltaY / tmp;
-//            deltaX = (int) (deltaX * rate);
         } else if (newY > MAX_Y) {
             Line line = new Line(drawLocation.getLocation(), new Point(newX, newY));
             newX = (int) Math.ceil(line.solveForX(MAX_Y));
             newY = MAX_Y;
             vector.bounceY();
-//            int tmp = deltaY;
-//            deltaY = MAX_Y - drawLocation.y;
-//            vector.bounceY();
-//            double rate = (double) deltaY / tmp;
-//            deltaX = (int) (deltaX * rate);
         }
 
         for (Paddle paddle : potentiallyCollidablePaddles) {
@@ -67,12 +61,26 @@ public class Ball implements GameObject {
                     newX = paddle.getRectangle().x - SIZE;
                     newY = (int) line.solveForY(newX);
                 }
-                vector.bounceX();
+                vector.bounceX(); //todo bugfix - hit bottom/top of paddle bounces X, should Y
+                break; //todo cleanup
             }
         }
 
         oldLocation = new Rectangle(drawLocation);
         drawLocation.setLocation(newX, newY);
+
+        if(drawLocation.x < MIN_X){
+            SCORE_BOARD.HUMAN.increment();
+            reset();
+        }
+        if(drawLocation.x > MAX_X){
+            SCORE_BOARD.COMPUTER.increment();
+            reset();
+        }
+    }
+
+    private void reset() {
+        drawLocation = new Rectangle(defaultLocation);
     }
 
     @Override
