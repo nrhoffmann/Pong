@@ -1,55 +1,29 @@
 package io.github.nrhoffmann.pong.gui;
 
+import io.github.nrhoffmann.pong.geometry.Line;
 import io.github.nrhoffmann.pong.physics.Vector;
 
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Ball implements GameObject {
-    private Color color;
-    private Point location;
+    private static final Color COLOR = new Color(128, 128, 128);
+    private static final int SIZE = 75;
+    private static final int MIN_Y = 0;
+    private static final int MAX_Y = GamePane.GAME_TABLE_HEIGHT - SIZE;
+    private static final int MIN_X = 0 - SIZE;
+    private static final int MAX_X = SIZE + GamePane.WIDTH;
+
+    private Rectangle drawLocation;
+    private Rectangle oldLocation;
     private Vector vector;
-    private int size;
-    private int maxY;
-    private int minY;
-    private List<Paddle> potentiallyCollidablePaddles;
+    private List<Paddle> potentiallyCollidablePaddles = new LinkedList<>();
+    //private int checkCollisionsPastHere;
 
     Ball() {
-        size = 500;
-        color = new Color(128, 128, 128);
-        location = new Point(GamePane.WIDTH / 2 - size / 2, GamePane.GAME_TABLE_HEIGHT / 2);
-        vector = new Vector(1, 0);
-
-        maxY = GamePane.GAME_TABLE_HEIGHT - size;
-        minY = 0;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setLocation(Point location) {
-        this.location = location;
-    }
-
-    public Point getLocation() {
-        return location;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setVector(Vector vector) {
-        this.vector = vector;
+        drawLocation = new Rectangle(GamePane.WIDTH / 2 - SIZE / 2, GamePane.GAME_TABLE_HEIGHT / 2 - SIZE / 2, SIZE, SIZE);
+        vector = new Vector(0, 1);
     }
 
     public Vector getVector() {
@@ -58,27 +32,64 @@ public class Ball implements GameObject {
 
     @Override
     public void tick() {
-        int deltaX = (int) vector.getSpeedX();
-        int deltaY = (int) vector.getSpeedY();
+        int newX = (int) (drawLocation.x + vector.getSpeedX());
+        int newY = (int) (drawLocation.y + vector.getSpeedY());
 
-        if (location.y + deltaY < minY || location.y + deltaY > maxY) {
-            deltaY = Math.max(deltaY, minY - location.y); //simulates mass compression - could possibly smush oval too
-            deltaY = Math.min(deltaY, maxY - location.y);
+        if (newY < MIN_Y) { // ^^^N
+            Line line = new Line(drawLocation.getLocation(), new Point(newX, newY));
+            newX = (int) line.solveForX(MIN_Y);
+            newY = MIN_Y;
             vector.bounceY();
+//            int tmp = deltaY;
+//            deltaY = MIN_Y - drawLocation.y;
+//            vector.bounceY();
+//            double rate = (double) deltaY / tmp;
+//            deltaX = (int) (deltaX * rate);
+        } else if (newY > MAX_Y) {
+            Line line = new Line(drawLocation.getLocation(), new Point(newX, newY));
+            newX = (int) Math.ceil(line.solveForX(MAX_Y));
+            newY = MAX_Y;
+            vector.bounceY();
+//            int tmp = deltaY;
+//            deltaY = MAX_Y - drawLocation.y;
+//            vector.bounceY();
+//            double rate = (double) deltaY / tmp;
+//            deltaX = (int) (deltaX * rate);
         }
 
-        // for(GameTable.Object thing : ) //todo - check for collisions with each thing in parent gametable's list of stuff on table besides self
+        for (Paddle paddle : potentiallyCollidablePaddles) {
+            if (new Rectangle(newX, newY, SIZE, SIZE).intersects(paddle.getRectangle())) {
+                Line line = new Line(drawLocation.getLocation(), new Point(newX, newY));
+                if (paddle.SIDE == Side.LEFT) {
+                    newX = (int) paddle.getRectangle().getMaxX();
+                    newY = (int) line.solveForY(newX);
+                } else {
+                    newX = paddle.getRectangle().x - SIZE;
+                    newY = (int) line.solveForY(newX);
+                }
+                vector.bounceX();
+            }
+        }
 
-        location.translate(deltaX, deltaY);
+        oldLocation = new Rectangle(drawLocation);
+        drawLocation.setLocation(newX, newY);
+    }
+
+    @Override
+    public Rectangle changedMask() {
+        return oldLocation.union(drawLocation);
     }
 
     @Override
     public void paint(Graphics2D g2) {
-        g2.setColor(color);
-        g2.fillOval(location.x , location.y, size, size);
+        g2.setColor(COLOR);
+        g2.fillOval(drawLocation.x, drawLocation.y, SIZE, SIZE);
     }
 
     public void setPotentiallyCollidablePaddles(List<Paddle> potentiallyCollidablePaddles) {
         this.potentiallyCollidablePaddles = potentiallyCollidablePaddles;
+        //if (potentiallyCollidablePaddles.get(0).SIDE == Side.LEFT) {
+
+        //}
     }
 }
