@@ -6,13 +6,14 @@ import io.github.nrhoffmann.pong.control.MouseWheelBridge;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.font.GlyphMetrics;
 
 public class GamePane extends JPanel {
     static final int WIDTH = 1080;
     public static final int GAME_TABLE_HEIGHT = 720;
 
     private static final int SCORE_BOARD_HEIGHT = 32;
+
+    private static boolean gameOver = false;
 
     GamePane() {
         ScoreBoard scoreBoard = new ScoreBoard();
@@ -48,6 +49,14 @@ public class GamePane extends JPanel {
         addMouseWheelListener(bridge.listener());
 
         bridge.addConsumer(human);
+    }
+
+    public static boolean isGameActive(){
+        return gameOver;
+    }
+
+    public static void togglePauseGame(){
+        gameOver = !gameOver;
     }
 
 }

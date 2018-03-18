@@ -29,6 +29,22 @@ public class Score {
     void increment() {
         ++points;
         SwingUtilities.invokeLater(this::update);
+        if(thisPointMakesMeWin()){
+            GamePane.togglePauseGame(); // Impossible to gain a point if it was already paused, so this definitely stops the game - unless two happen in the same tick, and then we've broken something anyway
+
+            // load hiscores
+
+            // add this hiscore if applicable
+
+            // save hiscores if changed
+
+            // show hiscores
+
+        }
+    }
+
+    boolean thisPointMakesMeWin(){
+        return points > 10; // todo and difference greater than 2? how does this work anyway? or multiply times # of balls?
     }
 
     private void update() {

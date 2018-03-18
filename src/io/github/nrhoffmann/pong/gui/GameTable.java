@@ -22,9 +22,17 @@ public class GameTable extends JPanel {
     }
 
     private void tick() {
-        LEFT_PADDLES.forEach(Paddle::tick);
-        RIGHT_PADDLES.forEach(Paddle::tick);
-        BALLS.forEach(Ball::tick);
+        if(GamePane.isGameActive()) { // Only tick if game is active (didn't win/not paused)
+            LEFT_PADDLES.forEach(Paddle::tick);
+            RIGHT_PADDLES.forEach(Paddle::tick);
+            BALLS.forEach(Ball::tick);
+        } else {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void apply() {
