@@ -13,7 +13,7 @@ public class Hiscores {
         load();
     }
 
-    public void load(){
+    private void load(){
         FileInputStream fin = null;
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(PATH));
@@ -29,12 +29,12 @@ public class Hiscores {
     }
 
     public boolean add(Element element){
-        //return true if it works and false otherwise
+        //return true if score is successfully added to hiscores (and saved) and false otherwise.
 
         return true;
     }
 
-    public void save(){
+    private void save(){
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH));
             oos.writeObject(hiscores);
