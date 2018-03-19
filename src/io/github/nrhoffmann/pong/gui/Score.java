@@ -2,6 +2,8 @@ package io.github.nrhoffmann.pong.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Score {
     private static final Font DISPLAY_FONT;
@@ -29,22 +31,32 @@ public class Score {
     void increment() {
         ++points;
         SwingUtilities.invokeLater(this::update);
-        if(thisPointMakesMeWin()){
+        if (thisPointMakesMeWin()) {
             GamePane.togglePauseGame(); // Impossible to gain a point if it was already paused, so this definitely stops the game - unless two happen in the same tick, and then we've broken something anyway
 
-            // load hiscores
+            Hiscores hiscores = Hiscores.instance();
 
-            // add this hiscore if applicable
+            if (points > hiscores.lowestExistingHiscore()) {
+                String initials = JOptionPane.showInputDialog("What are your initials?");
 
-            // save hiscores if changed
+                hiscores.add(initials, points);
+            }
 
-            // show hiscores
+            StringBuilder message = new StringBuilder("Scores:\n");
 
+            int place = 0;
+            for (int i = hiscores.getElements().length - 1; i >= 0; i--) {
+                message.append(String.format("%d: %s %8d%n", ++place, hiscores.getElements()[i].getName(), hiscores.getElements()[i].getScore()));
+            }
+
+            JOptionPane.showMessageDialog(null, message);
+
+            System.exit(0);
         }
     }
 
-    boolean thisPointMakesMeWin(){
-        return points > 10; // todo and difference greater than 2? how does this work anyway? or multiply times # of balls?
+    boolean thisPointMakesMeWin() {
+        return points > 1; // todo and difference greater than 2? how does this work anyway? or multiply times # of balls?
     }
 
     private void update() {

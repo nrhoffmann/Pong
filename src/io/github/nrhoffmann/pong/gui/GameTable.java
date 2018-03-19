@@ -15,24 +15,18 @@ public class GameTable extends JPanel {
         setBackground(Color.DARK_GRAY);
 
         new Timer(5, event -> {
-            tick();
-            apply();
-            prepareNextTick();
+            if (GamePane.isGameActive()) { // Only tick if game is active (didn't win/not paused)
+                tick();
+                apply();
+                prepareNextTick();
+            }
         }).start();
     }
 
     private void tick() {
-        if(GamePane.isGameActive()) { // Only tick if game is active (didn't win/not paused)
-            LEFT_PADDLES.forEach(Paddle::tick);
-            RIGHT_PADDLES.forEach(Paddle::tick);
-            BALLS.forEach(Ball::tick);
-        } else {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        LEFT_PADDLES.forEach(Paddle::tick);
+        RIGHT_PADDLES.forEach(Paddle::tick);
+        BALLS.forEach(Ball::tick);
     }
 
     private void apply() {

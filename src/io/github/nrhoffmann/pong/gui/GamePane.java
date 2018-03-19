@@ -52,7 +52,7 @@ public class GamePane extends JPanel {
     }
 
     public static boolean isGameActive(){
-        return gameOver;
+        return !gameOver;
     }
 
     public static void togglePauseGame(){
