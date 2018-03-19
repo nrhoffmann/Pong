@@ -2,8 +2,6 @@ package io.github.nrhoffmann.pong.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Score {
     private static final Font DISPLAY_FONT;
@@ -15,6 +13,7 @@ public class Score {
     private JLabel display;
     private final String template;
     private int points;
+    private int bounces;
 
     Score(String label) {
         initDisplay();
@@ -28,7 +27,7 @@ public class Score {
         display.setHorizontalAlignment(JLabel.CENTER);
     }
 
-    void increment() {
+    void incrementPointCount() {
         ++points;
         SwingUtilities.invokeLater(this::update);
         if (thisPointMakesMeWin()) {
@@ -36,10 +35,14 @@ public class Score {
 
             Hiscores hiscores = Hiscores.instance();
 
-            if (points > hiscores.lowestExistingHiscore()) {
-                String initials = JOptionPane.showInputDialog("What are your initials?");
-
-                hiscores.add(initials, points);
+            if (bounces > hiscores.lowestExistingHiscore()) {
+                String initials;
+                if (template.charAt(0) == 'C') {
+                    initials = "CMP";
+                } else {
+                    initials = JOptionPane.showInputDialog("What are your initials?");
+                }
+                hiscores.add(initials, bounces);
             }
 
             StringBuilder message = new StringBuilder("Scores:\n");
@@ -55,8 +58,12 @@ public class Score {
         }
     }
 
+    void incrementBounceCount() {
+        ++bounces;
+    }
+
     boolean thisPointMakesMeWin() {
-        return points > 1; // todo and difference greater than 2? how does this work anyway? or multiply times # of balls?
+        return points > 10; // todo and difference greater than 2? how does this work anyway? or multiply times # of balls?
     }
 
     private void update() {

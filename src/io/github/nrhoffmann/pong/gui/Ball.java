@@ -59,9 +59,11 @@ public class Ball implements GameObject {
                 if (paddle.SIDE == Side.LEFT) {
                     newX = (int) paddle.getRectangle().getMaxX();
                     newY = (int) line.solveForY(newX);
+                    SCORE_BOARD.COMPUTER.incrementBounceCount();
                 } else {
                     newX = paddle.getRectangle().x - SIZE;
                     newY = (int) line.solveForY(newX);
+                    SCORE_BOARD.HUMAN.incrementBounceCount();
                 }
                 vector.bounceX(); //todo bugfix - hit bottom/top of paddle bounces X, should Y
                 break; //todo cleanup
@@ -72,11 +74,11 @@ public class Ball implements GameObject {
         drawLocation.setLocation(newX, newY);
 
         if(drawLocation.x < MIN_X){
-            SCORE_BOARD.HUMAN.increment();
+            SCORE_BOARD.HUMAN.incrementPointCount();
             reset();
         }
         if(drawLocation.x > MAX_X){
-            SCORE_BOARD.COMPUTER.increment();
+            SCORE_BOARD.COMPUTER.incrementPointCount();
             reset();
         }
     }
